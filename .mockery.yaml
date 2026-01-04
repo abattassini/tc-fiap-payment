@@ -1,0 +1,10 @@
+with-expecter: true
+mockname: "Mock{{.InterfaceName}}"
+filename: "{{.InterfaceName}}.go"
+packages:
+  github.com/abattassini/tc-fiap-payment/internal/payment/domain/repositories:
+    config:
+      dir: "mocks/payment/domain/repositories"
+      outpkg: mocks
+    interfaces:
+      PaymentRepository:
