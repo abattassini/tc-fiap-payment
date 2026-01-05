@@ -10,6 +10,12 @@
 
 # Output of the go coverage tool
 *.out
+coverage.out
+business_coverage.out
+payment_coverage.out
+COVERAGE_REPORT.md
+COVERAGE_COMPARISON.md
+test_output.txt
 
 # Dependency directories
 vendor/

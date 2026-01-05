@@ -8,3 +8,34 @@ packages:
       outpkg: mocks
     interfaces:
       PaymentRepository:
+  github.com/abattassini/tc-fiap-payment/internal/payment/gateways:
+    config:
+      dir: "mocks/payment/gateways"
+      outpkg: mocks
+    interfaces:
+      MercadoPagoGateway:
+  github.com/abattassini/tc-fiap-payment/internal/payment/infrastructure/clients:
+    config:
+      dir: "mocks/payment/infrastructure/clients"
+      outpkg: mocks
+    interfaces:
+      OrderClient:
+  github.com/abattassini/tc-fiap-payment/internal/payment/usecase/updatePayment:
+    config:
+      dir: "mocks/payment/usecase/updatePayment"
+      outpkg: mocks
+    interfaces:
+      UpdatePaymentUseCase:
+  github.com/abattassini/tc-fiap-payment/internal/payment/presenter:
+    config:
+      dir: "mocks/payment/presenter"
+      outpkg: mocks
+    interfaces:
+      PaymentPresenter:
+  github.com/abattassini/tc-fiap-payment/internal/payment/controller:
+    config:
+      dir: "mocks/payment/controller"
+      outpkg: mocks
+    interfaces:
+      PaymentController:
+      PaymentWebhookController:
