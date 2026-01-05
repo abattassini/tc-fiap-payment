@@ -26,6 +26,3 @@ Content-Type: application/json
     "id": "payment_123"
   }
 }
-
-### 5. Health Check (Root)
-GET http://localhost:8082/
