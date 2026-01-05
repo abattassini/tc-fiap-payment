@@ -1,0 +1,31 @@
+### TC-FIAP Payment API Tests
+### Base URL: http://localhost:8082
+
+### 1. Create Payment
+POST http://localhost:8082/v1/payment
+Content-Type: application/json
+
+{
+  "orderId": 123,
+  "amount": 99.90
+}
+
+### 2. Get Payment by Order ID
+GET http://localhost:8082/v1/payment/123
+
+### 3. Get Payment Status by Order ID
+GET http://localhost:8082/v1/payment/123/status
+
+### 4. Test Webhook Notification
+POST http://localhost:8082/payment/webhooks/notify
+Content-Type: application/json
+
+{
+  "id": "12345",
+  "data": {
+    "id": "payment_123"
+  }
+}
+
+### 5. Health Check (Root)
+GET http://localhost:8082/

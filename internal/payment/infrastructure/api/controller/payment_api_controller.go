@@ -2,12 +2,13 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
-	"github.com/go-chi/chi/v5"
 	paymentController "github.com/abattassini/tc-fiap-payment/internal/payment/controller"
 	"github.com/abattassini/tc-fiap-payment/internal/payment/infrastructure/api/dto"
+	"github.com/go-chi/chi/v5"
 )
 
 type PaymentApiController struct {
@@ -35,7 +36,9 @@ func (c *PaymentApiController) CreatePayment(w http.ResponseWriter, r *http.Requ
 
 	paymentCode, err := c.paymentController.CreatePayment(&request)
 	if err != nil {
-		http.Error(w, "Error processing request", http.StatusInternalServerError)
+		// Log the actual error for debugging
+		println("Error creating payment:", err.Error())
+		http.Error(w, fmt.Sprintf("Error processing request: %v", err), http.StatusInternalServerError)
 		return
 	}
 
