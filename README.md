@@ -22,18 +22,31 @@ This microservice handles all payment-related operations including:
 
 ## Running Locally
 
+### Quick Start (Recommended)
+
+1. Copy the example environment file:
+```bash
+cp .env.example .env
+```
+
+2. Run the application:
+```bash
+./run.sh
+```
+
+The service will be available at `http://localhost:8082`
+
 ### Using Docker Compose
 
 ```bash
 docker-compose up
 ```
 
-The service will be available at `http://localhost:8082`
-
-### Using Go
+### Using Go directly
 
 ```bash
 go mod download
+# Make sure to set environment variables or use .env file
 go run cmd/api/main.go
 ```
 

@@ -14,9 +14,12 @@ External services are mocked to enable local testing without dependencies.
   - **Mock**: Skips order status update
   - **TODO**: Replace with `u.orderClient.UpdateOrderStatus()`
 
-### 2. MercadoPago Gateway (1 place)
-- **File**: `internal/payment/infrastructure/gateways/mercado_pago_gateway_impl.go:75`
-  - **Mock**: Returns fake QR code
-  - **TODO**: Uncomment real API call
+### 2. MercadoPago Gateway
+- **Status**: ✅ **WORKING** - Using real TEST credentials
+- **File**: `internal/payment/infrastructure/gateways/mercado_pago_gateway_impl.go`
+- **Note**: Automatically switches between mock/real based on credentials
+  - Mock mode: When using `test_token_12345` or `test_client_id`
+  - Real mode: When using valid TEST credentials (currently active)
 
 **Search for**: `// TODO: Replace mock` to find all mock locations
+
