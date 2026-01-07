@@ -16,13 +16,11 @@ GET http://localhost:8082/v1/payment/123
 ### 3. Get Payment Status by Order ID
 GET http://localhost:8082/v1/payment/123/status
 
-### 4. Test Webhook Notification
+### 4. Test Webhook Notification (Use orderID that exists)
 POST http://localhost:8082/payment/webhooks/notify
 Content-Type: application/json
 
 {
-  "id": "12345",
-  "data": {
-    "id": "payment_123"
-  }
+  "id": "123",
+  "topic": "payment.updated"
 }

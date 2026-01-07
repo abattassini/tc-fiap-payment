@@ -34,7 +34,7 @@ func NewOrderClient(httpClient rest.HTTPClient) *OrderClientImpl {
 
 func (c *OrderClientImpl) GetOrder(orderId uint) (*dto.OrderResponseDto, error) {
 	url := fmt.Sprintf("%s/v1/order/%d", c.baseURL, orderId)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -59,10 +59,11 @@ func (c *OrderClientImpl) GetOrder(orderId uint) (*dto.OrderResponseDto, error) 
 	return &order, nil
 }
 
+// TODO: Update this when tc-fiap-order is ready (Status won't be on route)
 func (c *OrderClientImpl) UpdateOrderStatus(orderId uint, status int) error {
-	url := fmt.Sprintf("%s/v1/order/%d/status/%d", c.baseURL, orderId, status)
-	
-	req, err := http.NewRequest("PUT", url, nil)
+	url := fmt.Sprintf("%s/v1/order/%d/status", c.baseURL, orderId)
+
+	req, err := http.NewRequest("PUT", url, nil) // TODO: Change to a json with status
 	if err != nil {
 		return err
 	}

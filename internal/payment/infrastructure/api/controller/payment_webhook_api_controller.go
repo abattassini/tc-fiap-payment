@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/abattassini/tc-fiap-payment/internal/payment/controller"
 	"github.com/abattassini/tc-fiap-payment/internal/payment/infrastructure/api/dto"
+	"github.com/go-chi/chi/v5"
 )
 
 type PaymentWebhookApiController struct {
@@ -18,7 +18,7 @@ func NewPaymentWebhookApiController(paymentWebhookController controller.PaymentW
 }
 
 func (c *PaymentWebhookApiController) RegisterRoutes(r chi.Router) {
-	prefix := "/payment/webhooks/"
+	prefix := "/payment/webhooks"
 	r.Post(prefix+"/notify", c.HandlePaymentNotification)
 }
 
