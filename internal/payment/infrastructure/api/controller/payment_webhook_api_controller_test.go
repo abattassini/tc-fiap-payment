@@ -50,7 +50,7 @@ func (suite *PaymentWebhookApiControllerTestSuite) Test_HandlePaymentNotificatio
 		Once()
 
 	body, _ := json.Marshal(request)
-	req := httptest.NewRequest(http.MethodPost, "/payment/webhooks//notify", bytes.NewBuffer(body))
+	req := httptest.NewRequest(http.MethodPost, "/payment/webhooks/notify", bytes.NewBuffer(body))
 	rec := httptest.NewRecorder()
 
 	// WHEN handling webhook
@@ -63,7 +63,7 @@ func (suite *PaymentWebhookApiControllerTestSuite) Test_HandlePaymentNotificatio
 
 func (suite *PaymentWebhookApiControllerTestSuite) Test_HandlePaymentNotification_WithInvalidJSON_ShouldReturn400() {
 	// GIVEN invalid JSON
-	req := httptest.NewRequest(http.MethodPost, "/payment/webhooks//notify", bytes.NewBufferString("invalid json"))
+	req := httptest.NewRequest(http.MethodPost, "/payment/webhooks/notify", bytes.NewBufferString("invalid json"))
 	rec := httptest.NewRecorder()
 
 	// WHEN handling webhook with invalid JSON
@@ -88,7 +88,7 @@ func (suite *PaymentWebhookApiControllerTestSuite) Test_HandlePaymentNotificatio
 		Once()
 
 	body, _ := json.Marshal(request)
-	req := httptest.NewRequest(http.MethodPost, "/payment/webhooks//notify", bytes.NewBuffer(body))
+	req := httptest.NewRequest(http.MethodPost, "/payment/webhooks/notify", bytes.NewBuffer(body))
 	rec := httptest.NewRecorder()
 
 	// WHEN webhook processing fails

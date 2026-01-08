@@ -47,29 +47,12 @@ func (u *AddPaymentUseCaseImpl) Execute(command *commands.AddPaymentCommand) (st
 		return "", err
 	}
 
-	// TODO: Replace mock with real Order Service call once the service is running
-	// Currently mocking the Order Service response to avoid dependency on external service
-	// Original code:
-	// order, err := u.orderClient.GetOrder(paymentResult.OrderId)
-	// if err != nil {
-	//     return "", err
-	// }
-
-	// Mock order data for now
-	order := &dto.OrderResponseDto{
-		ID:          paymentResult.OrderId,
-		TotalAmount: paymentResult.Total,
-		Products: []*dto.OrderProductDto{
-			{
-				ProductId:   1,
-				Name:        "Mock Product",
-				Description: "This is a mock product for testing",
-				Category:    1, // Food category
-				Price:       command.Total,
-				Quantity:    1,
-				ImageLink:   "https://example.com/image.jpg",
-			},
-		},
+	// Get order details from Order Service
+	order, err := u.orderClient.GetOrder(paymentResult.OrderId)
+	if err != nil {
+		// Log the error for debugging
+		println("ERROR: Failed to get order from Order Service:", err.Error())
+		return "", fmt.Errorf("failed to get order from Order Service: %w", err)
 	}
 
 	var items []dto.Item

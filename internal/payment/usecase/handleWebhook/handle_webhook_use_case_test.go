@@ -144,7 +144,8 @@ func (suite *HandleWebhookUseCaseTestSuite) Test_HandleWebhook_WithOrderClientEr
 
 	// THEN error should be returned
 	assert.Error(suite.T(), err)
-	assert.Equal(suite.T(), expectedError, err)
+	assert.Contains(suite.T(), err.Error(), "failed to update order status in Order Service")
+	assert.Contains(suite.T(), err.Error(), expectedError.Error())
 	suite.mockUpdatePaymentUseCase.AssertExpectations(suite.T())
 	suite.mockOrderClient.AssertExpectations(suite.T())
 }

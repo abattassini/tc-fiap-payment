@@ -1,6 +1,7 @@
 package clients
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -59,14 +60,21 @@ func (c *OrderClientImpl) GetOrder(orderId uint) (*dto.OrderResponseDto, error) 
 	return &order, nil
 }
 
-// TODO: Update this when tc-fiap-order is ready (Status won't be on route)
 func (c *OrderClientImpl) UpdateOrderStatus(orderId uint, status int) error {
 	url := fmt.Sprintf("%s/v1/order/%d/status", c.baseURL, orderId)
 
-	req, err := http.NewRequest("PUT", url, nil) // TODO: Change to a json with status
+	// Create request body with status
+	requestBody := map[string]uint{"status": uint(status)}
+	jsonBody, err := json.Marshal(requestBody)
 	if err != nil {
 		return err
 	}
+
+	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonBody))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {

@@ -32,7 +32,7 @@ func (c *PaymentWebhookApiController) HandlePaymentNotification(w http.ResponseW
 
 	err := c.paymentWebhookController.HandleWebhook(&request)
 	if err != nil {
-		http.Error(w, "Error processing request", http.StatusInternalServerError)
+		http.Error(w, "Error processing webhook: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 

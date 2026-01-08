@@ -1,6 +1,7 @@
 package handlewebhook
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/abattassini/tc-fiap-payment/internal/payment/infrastructure/clients"
@@ -43,17 +44,13 @@ func (u *HandleWebhookUseCaseImpl) Execute(command commands.HandleWebhookCommand
 	}
 
 	if command.Status == "Approved" {
-		// TODO: Replace mock with real Order Service call once the service is running
-		// Currently mocking the Order Service UpdateOrderStatus to avoid dependency on external service
-		// Original code:
-		// err = u.orderClient.UpdateOrderStatus(uint(orderId), 2)
-		// if err != nil {
-		//     return err
-		// }
-
-		// Mock: Simulating successful order status update
-		// In production, this would call the Order Service to update status to "Preparing" (status=2)
-		_ = uint(orderId) // Just to avoid unused variable warning
+		// Update order status to "Preparing" (status=2) when payment is approved
+		err = u.orderClient.UpdateOrderStatus(uint(orderId), 2)
+		if err != nil {
+			println("ERROR: Failed to update order status in Order Service:", err.Error())
+			return fmt.Errorf("failed to update order status in Order Service: %w", err)
+		}
+		println("Successfully updated order", orderId, "status to 'Preparing' (status=2)")
 	}
 
 	return nil

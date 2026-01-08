@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8082:8082"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
@@ -13,6 +15,7 @@ services:
       - DB_NAME=${DB_NAME:-payment_db}
       - DB_SSLMODE=disable
       - PORT=8082
+      - ORDER_SERVICE_URL=${ORDER_SERVICE_URL:-http://host.docker.internal:8081}
       - MERCADO_PAGO_BASEURL=${MERCADO_PAGO_BASEURL}
       - MERCADO_PAGO_ACCESS_TOKEN=${MERCADO_PAGO_ACCESS_TOKEN}
       - MERCADO_PAGO_CLIENT_ID=${MERCADO_PAGO_CLIENT_ID}
