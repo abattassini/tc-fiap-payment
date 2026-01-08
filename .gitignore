@@ -42,8 +42,20 @@ coverage
 # OS
 .DS_Store
 
-# Notes and summaries (for internal use)
-SUMMARY.md
-NOTES.md
-TODO.md
-COMMIT_PLAN.md
+# Kubernetes secrets (NEVER commit these!)
+k8s/secret.yaml
+**/secret.yaml
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/*.tfvars
+terraform/outputs.json
+
+# Documentation files (not tracked)
+*.md
+!README.md
+k8s/*.md
+terraform/*.md

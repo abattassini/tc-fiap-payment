@@ -1,0 +1,125 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app-container
+          image: 687620679899.dkr.ecr.us-east-1.amazonaws.com/tc-fiap-payment:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+              ephemeral-storage: "1Gi"
+            limits:
+              memory: "256Mi"
+          ports:
+            - containerPort: 8082
+          env:
+            # AWS Configuration
+            - name: AWS_REGION
+              value: "us-east-1"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SESSION_TOKEN
+                  optional: true  # Opcional pois pode não existir fora do Academy
+            
+            # Database Configuration (PostgreSQL RDS)
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: DB_PORT
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: payment-secrets
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: payment-secrets
+                  key: DB_PASSWORD
+            - name: DB_SSLMODE
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: DB_SSLMODE
+            
+            # Application Configuration
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: PORT
+            
+            # Order Service Integration
+            - name: ORDER_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: ORDER_SERVICE_URL
+            
+            # MercadoPago Configuration
+            - name: MERCADO_PAGO_BASEURL
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: MERCADO_PAGO_BASEURL
+            - name: MERCADO_PAGO_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: payment-secrets
+                  key: MERCADO_PAGO_ACCESS_TOKEN
+            - name: MERCADO_PAGO_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: payment-secrets
+                  key: MERCADO_PAGO_CLIENT_ID
+            - name: MERCADO_PAGO_POS_ID
+              valueFrom:
+                secretKeyRef:
+                  name: payment-secrets
+                  key: MERCADO_PAGO_POS_ID
+            - name: MERCADO_PAGO_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: payment-secrets
+                  key: MERCADO_PAGO_WEBHOOK_SECRET
+            - name: MERCADO_PAGO_WEBHOOK_CALLBACK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: MERCADO_PAGO_WEBHOOK_CALLBACK_URL
