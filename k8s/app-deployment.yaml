@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: payment-app-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: payment-app
   template:
     metadata:
       labels:
-        app: my-app
+        app: payment-app
     spec:
       containers:
-        - name: my-app-container
+        - name: payment-app-container
           image: 939458930010.dkr.ecr.us-east-1.amazonaws.com/tc-fiap-payment:latest
           imagePullPolicy: Always
           ports:

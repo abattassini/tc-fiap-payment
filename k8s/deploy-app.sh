@@ -115,7 +115,7 @@ deploy_app() {
 wait_for_app() {
     print_header "Waiting for application to be ready"
     
-    kubectl wait --for=condition=ready pod -l app=my-app --timeout=300s
+    kubectl wait --for=condition=ready pod -l app=payment-app --timeout=300s
     print_status "✅ Application is ready"
 }
 
@@ -124,11 +124,11 @@ show_status() {
     print_header "Application Deployment Status"
     
     echo "Pods:"
-    kubectl get pods -l app=my-app
+    kubectl get pods -l app=payment-app
     
     echo ""
     echo "Services:"
-    kubectl get services -l app=my-app
+    kubectl get services -l app=payment-app
     
     echo ""
     echo "HPA:"
