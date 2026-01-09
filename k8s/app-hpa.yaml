@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: payment-deployment
+    name: payment-app-deployment
   minReplicas: 1
   maxReplicas: 3
   metrics:
