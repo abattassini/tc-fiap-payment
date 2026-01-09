@@ -39,7 +39,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: postgres-secret
-                  key: POSTGRES_DB
+                  key: DB_NAME_PAYMENT
             
             # Order Service Integration
             - name: ORDER_SERVICE_URL
